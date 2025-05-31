@@ -31,10 +31,14 @@ def main():
         updatable.update(dt)
         for shape in drawable:
             shape.draw(screen)
-        for shape in asteroids:
-            if player.collision(shape):
+        for asteroid in asteroids:
+            if player.collision(asteroid):
                 print("Game over!")
                 return
+            for shot in shots:
+                if asteroid.collision(shot):
+                    asteroid.kill()
+                    shot.kill()
         pygame.display.flip()
         delta = clock.tick(60)
         dt = delta / 1000
